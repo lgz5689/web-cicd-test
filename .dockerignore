@@ -1,0 +1,13 @@
+.dockerignore
+.git
+
+_output/
+logs/
+
+README.md
+CONTRIBUTING.md
+
+docker-compose.yaml
+
+.github/
+.husky
