@@ -2,10 +2,10 @@ import { useState } from "react";
 
 const App = () => {
   // eslint has error
-  // const [first, setfirst] = useState("");
+  const [first, setfirst] = useState("");
 
   // eslint not error
-  const [first] = useState("");
+  // const [first] = useState("");
 
   // auto format
   // if (first) {
