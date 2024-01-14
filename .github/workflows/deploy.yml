@@ -88,4 +88,3 @@ jobs:
           push: true
           tags: |
             kevlnlee/web-cicd-test:latest
-            kevlnlee/web-cicd-test:${{ env.GITHUB_REF##*/ }}
