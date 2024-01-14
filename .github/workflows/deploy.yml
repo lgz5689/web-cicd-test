@@ -1,8 +1,9 @@
 name: Deploy 
 
 on:
-  tags:
-    - v*
+  push:
+    tags:
+      - v*
   workflow_dispatch:
 
 permissions:
