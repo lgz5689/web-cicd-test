@@ -63,12 +63,10 @@ jobs:
           echo "Current Size: $CURRENT_SIZE"
 
       - name: Comment on PR
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { context, github } = require('@actions/github');
-            const prNumber = context.payload.pull_request.number;
             const previousSize = process.env.PREVIOUS_SIZE;
             const currentSize = process.env.CURRENT_SIZE;
 
@@ -81,6 +79,6 @@ jobs:
             github.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: prNumber,
+              issue_number: context.payload.pull_request.number,
               body: message,
             });
