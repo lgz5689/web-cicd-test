@@ -1,0 +1,78 @@
+name: Size report
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  size-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          path: main-code
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build main branch
+        working-directory: main-code
+        run: pnpm run build
+
+      - name: Calculate previous size
+        working-directory: main-code
+        run: |
+          PREVIOUS_SIZE=$(node ../scripts/size-report.js)
+
+      - name: Checkout PR code
+        uses: actions/checkout@v3
+
+      - name: Build PR code
+        run: pnpm run build
+
+      - name: Calculate current size
+        run: |
+          CURRENT_SIZE=$(node scripts/size-report.js)
+
+      - name: Display size difference
+        run: |
+          echo "Previous Size: $PREVIOUS_SIZE"
+          echo "Current Size: $CURRENT_SIZE"
+
+      - name: Comment on PR
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { context, github } = require('@actions/github');
+            const prNumber = context.payload.pull_request.number;
+            const previousSize = process.env.PREVIOUS_SIZE;
+            const currentSize = process.env.CURRENT_SIZE;
+
+            const message = `
+              | Difference | Main branch | Current PR |
+              |------------|-------------|------------|
+              | Build Size | ${previousSize} | ${currentSize} |
+            `;
+
+            github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: message,
+            });
