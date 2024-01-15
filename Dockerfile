@@ -1,15 +1,15 @@
-FROM node:20.11.0 as builder
+FROM node:20.11.0-alpine as builder
 
 WORKDIR /app
 
 ADD . .
 
-RUN rm -rf node_modules
-RUN npm install -g pnpm
-RUN pnpm install
-RUN pnpm run build
+RUN rm -rf node_modules && \
+    npm install -g pnpm && \
+    pnpm install && \
+    pnpm run build
 
-FROM nginx
+FROM nginx:alpine
 
 WORKDIR /usr/share/nginx/html/
 
