@@ -25,18 +25,13 @@ jobs:
         with:
           version: 8
 
-      - name: Show current directory
-        run: |
-          pwd
-          ls -la
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 21
-          cache: pnpm
 
       - name: Install dependencies
+        working-directory: main-code
         run: pnpm install
 
       - name: Build main branch
