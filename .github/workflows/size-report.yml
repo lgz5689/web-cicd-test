@@ -41,7 +41,7 @@ jobs:
       - name: Calculate previous size
         working-directory: main-code
         run: |
-          PREVIOUS_SIZE=$(node ../scripts/size-report.js)
+          PREVIOUS_SIZE=$(node scripts/size-report.js)
 
       - name: Checkout PR code
         uses: actions/checkout@v4
