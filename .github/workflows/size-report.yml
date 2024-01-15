@@ -47,6 +47,9 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build PR code
         run: pnpm run build
 
