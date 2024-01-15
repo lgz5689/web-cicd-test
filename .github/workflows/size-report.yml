@@ -21,6 +21,9 @@ jobs:
         with:
           version: 8
 
+      - name: Show current directory
+        run: pwd
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
