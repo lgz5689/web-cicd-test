@@ -2,10 +2,10 @@
   "name": "web-cicd-test",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "main": "dist-electron/main/index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite --host",
+    "build": "tsc && vite build && electron-builder",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet src",
     "format": "prettier --write .",
@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "i18next": "^23.11.5",
     "pretty-bytes": "^6.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -40,17 +41,22 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.4",
     "@commitlint/config-conventional": "^18.4.4",
+    "@types/node": "^20.14.2",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "electron": "^30.0.9",
+    "electron-builder": "^24.13.3",
+    "electron-store": "^9.0.0",
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^8.0.3",
     "prettier": "^3.2.2",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-electron-plugin": "^0.8.3"
   }
 }
