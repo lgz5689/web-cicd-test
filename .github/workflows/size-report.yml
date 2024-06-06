@@ -38,13 +38,6 @@ jobs:
         working-directory: main-code
         run: pnpm run build
 
-      - name: Calculate previous size
-        id: size-previous
-        working-directory: main-code
-        run: |
-          PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts)
-          echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
-
       - name: Checkout PR code
         uses: actions/checkout@v4
 
@@ -53,6 +46,12 @@ jobs:
 
       # - name: Build PR code
       #   run: pnpm run build
+
+      - name: Calculate previous size
+        id: size-previous
+        run: |
+          PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts /main-code/scripts)
+          echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
 
       - name: Calculate current size
         id: size-current

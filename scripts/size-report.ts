@@ -3,8 +3,6 @@ import process from "node:process";
 import path from "node:path";
 import prettyBytes from "pretty-bytes";
 
-const distPath = path.resolve(__dirname, "..", "dist");
-
 async function calculateSize(directory: string) {
   const files = await fs.readdir(directory);
 
@@ -25,6 +23,7 @@ async function calculateSize(directory: string) {
 }
 
 async function main() {
+  const distPath = process.argv[2] || path.resolve(__dirname, "..", "dist");
   const distSize = await calculateSize(distPath);
   process.stdout.write(prettyBytes(distSize));
 }
