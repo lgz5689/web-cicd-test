@@ -43,6 +43,7 @@ jobs:
         working-directory: main-code
         run: |
           set -e
+          node main-code/scripts/size-report.mjs
           echo "PREVIOUS_SIZE=$(node scripts/size-report.mjs)" >> $GITHUB_ENV
 
       - name: Checkout PR code
@@ -58,6 +59,7 @@ jobs:
         id: size-current
         run: |
           set -e
+          node main-code/scripts/size-report.mjs
           echo "CURRENT_SIZE=$(node scripts/size-report.mjs)" >> $GITHUB_ENV
 
       - name: Display size difference
