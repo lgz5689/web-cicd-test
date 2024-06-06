@@ -43,6 +43,7 @@ jobs:
         working-directory: main-code
         run: |
           echo "PREVIOUS_SIZE=$(node scripts/size-report.mjs)" >> $GITHUB_ENV
+        continue-on-error: false
 
       - name: Checkout PR code
         uses: actions/checkout@v4
@@ -57,6 +58,7 @@ jobs:
         id: size-current
         run: |
           echo "CURRENT_SIZE=$(node scripts/size-report.mjs)" >> $GITHUB_ENV
+        continue-on-error: false
 
       - name: Display size difference
         run: |
