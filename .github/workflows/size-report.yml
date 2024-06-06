@@ -51,7 +51,7 @@ jobs:
         id: size-previous
         working-directory: main-code
         run: |
-          SCRIPT_PATH=../$(basename $PWD)/scripts/size-report.ts
+          SCRIPT_PATH=../$($PWD)/scripts/size-report.ts
           PREVIOUS_SIZE=$(pnpm tsx $SCRIPT_PATH)
           echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
 
