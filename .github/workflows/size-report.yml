@@ -42,9 +42,8 @@ jobs:
         id: size-previous
         working-directory: main-code
         run: |
-          set -e
-          node main-code/scripts/size-report.mjs
-          echo "PREVIOUS_SIZE=$(node scripts/size-report.mjs)" >> $GITHUB_ENV
+          PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts)
+          echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
 
       - name: Checkout PR code
         uses: actions/checkout@v4
@@ -58,9 +57,8 @@ jobs:
       - name: Calculate current size
         id: size-current
         run: |
-          set -e
-          node main-code/scripts/size-report.mjs
-          echo "CURRENT_SIZE=$(node scripts/size-report.mjs)" >> $GITHUB_ENV
+          CURRENT_SIZE=$(pnpm tsx scripts/size-report.ts)
+          echo "CURRENT_SIZE=$(CURRENT_SIZE)" >> $GITHUB_ENV
 
       - name: Display size difference
         run: |
