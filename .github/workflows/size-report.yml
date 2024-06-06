@@ -49,8 +49,10 @@ jobs:
 
       - name: Calculate previous size
         id: size-previous
+        working-directory: main-code
         run: |
-          PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts /main-code/scripts)
+          SCRIPT_PATH=../$(basename $PWD)/scripts/size-report.ts
+          PREVIOUS_SIZE=$(pnpm tsx $SCRIPT_PATH)
           echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
 
       - name: Calculate current size

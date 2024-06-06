@@ -23,7 +23,7 @@ async function calculateSize(directory: string) {
 }
 
 async function main() {
-  const distPath = process.argv[2] || path.resolve(__dirname, "..", "dist");
+  const distPath = path.resolve(__dirname, "..", "dist");
   const distSize = await calculateSize(distPath);
   process.stdout.write(prettyBytes(distSize));
 }
