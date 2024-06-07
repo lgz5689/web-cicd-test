@@ -46,15 +46,20 @@ jobs:
 
       - name: Checkout PR code
         uses: actions/checkout@v4
+        with:
+          path: pr-code
 
       - name: Install dependencies
+        working-directory: pr-code
         run: pnpm install
 
       - name: Build PR code
+        working-directory: pr-code
         run: pnpm run build
 
       - name: Calculate size
         id: calculate-size
+        working-directory: pr-code
         run: |
           ls -la /home/runner/work/web-cicd-test/web-cicd-test
           ls -la /home/runner/work/web-cicd-test/web-cicd-test/main-code
