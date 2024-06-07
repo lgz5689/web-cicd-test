@@ -1,12 +1,9 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import process from "node:process";
+import path from "node:path";
 import prettyBytes from "pretty-bytes";
 
-const __filename = new URL(import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
-const distPath = path.resolve(__dirname, "..", "dist");
-
-async function calculateSize(directory) {
+async function calculateSize(directory: string) {
   const files = await fs.readdir(directory);
 
   let totalSize = 0;
@@ -26,8 +23,9 @@ async function calculateSize(directory) {
 }
 
 async function main() {
+  const distPath = process.argv[2] || path.resolve(__dirname, "..", "dist");
   const distSize = await calculateSize(distPath);
-  console.log(prettyBytes(distSize));
+  process.stdout.write(prettyBytes(distSize));
 }
 
 main();
