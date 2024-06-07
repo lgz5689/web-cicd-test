@@ -58,9 +58,7 @@ jobs:
         id: calculate-size
         run: |
           echo "$(pwd)/dist"
-          PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts $DIST_PATH)
           CURRENT_SIZE=$(pnpm tsx scripts/size-report.ts)
-          echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
           echo "CURRENT_SIZE=$(CURRENT_SIZE)" >> $GITHUB_ENV
 
       - name: Display size difference
