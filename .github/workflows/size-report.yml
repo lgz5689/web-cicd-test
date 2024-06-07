@@ -42,8 +42,6 @@ jobs:
         id: set-dist-path
         working-directory: main-code
         run: |
-          echo "$(pwd)"
-          ls -l
           echo "DIST_PATH=$(pwd)/dist" >> $GITHUB_ENV
 
       - name: Checkout PR code
@@ -58,6 +56,7 @@ jobs:
       - name: Calculate size
         id: calculate-size
         run: |
+          ls -la /home/runner/work/web-cicd-test/web-cicd-test/main-code/dist
           PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts $DIST_PATH)
           echo "PREVIOUS_SIZE=$PREVIOUS_SIZE" >> $GITHUB_ENV
           CURRENT_SIZE=$(pnpm tsx scripts/size-report.ts)
