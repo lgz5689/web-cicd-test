@@ -38,27 +38,27 @@ jobs:
         working-directory: main-code
         run: pnpm run build
 
+      - name: Set DIST_PATH environment variable
+        id: set-dist-path
+        working-directory: main-code
+        run: |
+          echo "DIST_PATH=$(pwd)/dist" >> $GITHUB_ENV
+
       - name: Checkout PR code
         uses: actions/checkout@v4
 
       - name: Install dependencies
         run: pnpm install
 
-      # - name: Build PR code
-      #   run: pnpm run build
+      - name: Build PR code
+        run: pnpm run build
 
-      - name: Calculate previous size
-        id: size-previous
-        working-directory: main-code
+      - name: Calculate size
+        id: calculate-size
         run: |
-          SCRIPT_PATH=../$($PWD)/scripts/size-report.ts
-          PREVIOUS_SIZE=$(pnpm tsx $SCRIPT_PATH)
-          echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
-
-      - name: Calculate current size
-        id: size-current
-        run: |
+          PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts $DIST_PATH)
           CURRENT_SIZE=$(pnpm tsx scripts/size-report.ts)
+          echo "PREVIOUS_SIZE=$(PREVIOUS_SIZE)" >> $GITHUB_ENV
           echo "CURRENT_SIZE=$(CURRENT_SIZE)" >> $GITHUB_ENV
 
       - name: Display size difference
@@ -75,9 +75,11 @@ jobs:
             const currentSize = process.env.CURRENT_SIZE;
 
             const message = `
-              | Difference | Main branch | Current PR |
-              |------------|-------------|------------|
-              | Build Size | ${previousSize} | ${currentSize} |
+              # Size Report
+              |             | Build Size      |
+              |-------------|-----------------|
+              | Main branch	| ${previousSize} |
+              | Current PR  | ${currentSize}  |
             `;
 
             github.rest.issues.createComment({
