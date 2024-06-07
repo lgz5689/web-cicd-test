@@ -61,9 +61,6 @@ jobs:
         id: calculate-size
         working-directory: pr-code
         run: |
-          ls -la /home/runner/work/web-cicd-test/web-cicd-test
-          ls -la /home/runner/work/web-cicd-test/web-cicd-test/main-code
-          ls -la /home/runner/work/web-cicd-test/web-cicd-test/main-code/dist
           PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts $DIST_PATH)
           echo "PREVIOUS_SIZE=$PREVIOUS_SIZE" >> $GITHUB_ENV
           CURRENT_SIZE=$(pnpm tsx scripts/size-report.ts)
@@ -85,7 +82,7 @@ jobs:
             const message = `
               # Size Report
               |             | Build Size      |
-              |-------------|-----------------|
+              |:-----------:|:---------------:|
               | Main branch	| ${previousSize} |
               | Current PR  | ${currentSize}  |
             `;
