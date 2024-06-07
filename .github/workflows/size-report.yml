@@ -56,6 +56,8 @@ jobs:
       - name: Calculate size
         id: calculate-size
         run: |
+          ls -la /home/runner/work/web-cicd-test/web-cicd-test
+          ls -la /home/runner/work/web-cicd-test/web-cicd-test/main-code
           ls -la /home/runner/work/web-cicd-test/web-cicd-test/main-code/dist
           PREVIOUS_SIZE=$(pnpm tsx scripts/size-report.ts $DIST_PATH)
           echo "PREVIOUS_SIZE=$PREVIOUS_SIZE" >> $GITHUB_ENV
