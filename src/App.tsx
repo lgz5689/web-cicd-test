@@ -17,27 +17,11 @@ const App = () => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <span
-        style={{
-          backgroundImage:
-            "-webkit-linear-gradient(120deg, rgb(189, 52, 254) 30%, rgb(65, 209, 255))",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-          backgroundAttachment: "scroll",
-          fontSize: "56px",
-          fontWeight: 700,
-        }}
-      >
-        Web CICD Test
-      </span>
+    <div className="flex h-screen flex-col bg-[#1B1B1F]">
+      <div className="app-drag h-9 min-h-9 w-full bg-[#282c34]"></div>
+      <div className="flex flex-1 items-center justify-center text-6xl font-bold text-sky-400">
+        Web Template
+      </div>
     </div>
   );
 };
