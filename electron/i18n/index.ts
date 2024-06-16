@@ -1,5 +1,5 @@
-import i18n from "i18next";
 import { app } from "electron";
+import i18n from "i18next";
 
 import * as en from "./resources/en_US";
 import * as zh from "./resources/zh_CN";
