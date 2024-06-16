@@ -1,8 +1,29 @@
-import { BrowserWindow } from "electron";
 import { join } from "node:path";
+
+import { BrowserWindow } from "electron";
+
 import { distPath, preload } from "./appManage";
+import { registerShortcuts, unregisterShortcuts } from "./shortcutManage";
 
 let mainWindow: BrowserWindow;
+
+export const childWindowMap: { [key: string]: number } = {};
+
+export const clearChildWindows = () => {
+  for (const key in childWindowMap) {
+    const childWindow = BrowserWindow.getAllWindows().find(
+      (win) => win.id === childWindowMap[key],
+    );
+    if (childWindow?.isDestroyed()) {
+      delete childWindowMap[key];
+    }
+    if (childWindow && !childWindow?.isDestroyed()) {
+      childWindow.close();
+      delete childWindowMap[key];
+    }
+  }
+};
+
 export function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: "CD",
@@ -24,9 +45,18 @@ export function createMainWindow() {
   } else {
     mainWindow.loadFile(join(distPath, "index.html"));
   }
+
+  mainWindow.on("focus", () => {
+    mainWindow?.flashFrame(false);
+    registerShortcuts();
+  });
+
+  mainWindow.on("blur", () => {
+    unregisterShortcuts();
+  });
 }
 
-export const showWindow = () => {
+export const showMainWindow = () => {
   if (mainWindow.isMinimized()) {
     mainWindow.restore();
   }

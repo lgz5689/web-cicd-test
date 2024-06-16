@@ -1,9 +1,4 @@
-export interface IElectronAPI {
-  fileExists: (path: string) => boolean;
-  getPlatform: () => string;
-  openFile: (path: string) => Promise<string>;
-  showFile: (path: string) => void;
-}
+import { IElectronAPI } from "../../electron/constants/index";
 
 declare global {
   interface Window {

@@ -1,4 +1,5 @@
 import { join } from "node:path";
+
 import { isProd, isWin } from "../utils";
 
 export const electronDistPath = join(__dirname, "../");

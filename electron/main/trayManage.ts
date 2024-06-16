@@ -1,14 +1,15 @@
 import { app, Menu, Tray } from "electron";
 import { t } from "i18next";
-import { hideWindow, showWindow, toggleDevTools } from "./windowManage";
+
 import { trayIcon } from "./appManage";
+import { hideWindow, showMainWindow, toggleDevTools } from "./windowManage";
 
 let appTray: Tray | null;
 export const createTray = () => {
   const trayMenu = Menu.buildFromTemplate([
     {
       label: t("showWindow"),
-      click: showWindow,
+      click: showMainWindow,
     },
     {
       label: t("hideWindow"),
@@ -25,7 +26,7 @@ export const createTray = () => {
   ]);
   appTray = new Tray(trayIcon);
   appTray.setToolTip(app.getName());
-  appTray.on("click", showWindow);
+  appTray.on("click", showMainWindow);
   appTray.setContextMenu(trayMenu);
 };
 
