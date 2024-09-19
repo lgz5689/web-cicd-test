@@ -25,10 +25,13 @@ const ipcSendSync = <T extends IpcRenderToMainSync>(
 };
 
 const Api: IElectronAPI = {
-  fileExists: fs.existsSync,
-  getPlatform: () => process.platform,
+  // ipc
   ipcInvoke,
   ipcSendSync,
+
+  // func
+  fileExists: fs.existsSync,
+  getPlatform: () => process.platform,
   openFile: shell.openPath,
   showFile: shell.showItemInFolder,
 };

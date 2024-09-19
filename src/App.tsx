@@ -1,24 +1,8 @@
-import { useState } from "react";
-
 import { IpcRenderToMain, IpcRenderToMainSync } from "../electron/constants";
 
 const App = () => {
-  // eslint has error
-  // const [first, setfirst] = useState("");
-
-  // eslint not error
-  const [first] = useState("");
-
-  // auto format
-  // if (first) {
-  //   console.log(first);
-  // }
-
-  if (first) {
-    console.log(first);
-  }
-
   const ipc = () => {
+    if (!window.electronAPI) return;
     window.electronAPI?.ipcInvoke(IpcRenderToMain.ShowDevTools);
     const b = window.electronAPI?.ipcSendSync(
       IpcRenderToMainSync.CheckChildWindowStatus,
