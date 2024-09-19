@@ -19,8 +19,7 @@ export type IpcRenderToMainSyncDataMap = {
 };
 
 export interface IElectronAPI {
-  fileExists: (path: string) => boolean;
-  getPlatform: () => string;
+  // ipc
   ipcInvoke: <T extends keyof IpcRenderToMainDataMap>(
     channel: T,
     ...arg: unknown[]
@@ -29,6 +28,10 @@ export interface IElectronAPI {
     channel: T,
     ...arg: unknown[]
   ) => IpcRenderToMainSyncDataMap[T];
+
+  // func
+  fileExists: (path: string) => boolean;
+  getPlatform: () => string;
   openFile: (path: string) => Promise<string>;
   showFile: (path: string) => void;
 }
