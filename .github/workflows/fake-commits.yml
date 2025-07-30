@@ -18,8 +18,8 @@ jobs:
 
       - name: Set Git user
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "lgz5689"
+          git config user.email "1026838160@qq.com"
 
       - name: Generate random commits
         run: |
