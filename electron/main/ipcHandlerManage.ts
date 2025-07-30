@@ -7,6 +7,7 @@ import {
   showMainWindow,
   toggleDevTools,
 } from "./windowManage";
+
 export const setIpcMainListener = () => {
   ipcMain.handle(IpcRenderToMain.ShowMainWindow, () => {
     showMainWindow();

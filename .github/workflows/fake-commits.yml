@@ -1,0 +1,35 @@
+name: Random Commits
+
+on:
+  schedule:
+    - cron: '0 0 * * 1-5'
+
+jobs:
+  commit-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate random commits
+        run: |
+          COUNT=$((RANDOM % 7 + 3))  # 3~9 次
+          echo "Will make $COUNT commits"
+          for i in $(seq 1 $COUNT); do
+            echo "$(date) - commit $i" >> log.txt
+            git add log.txt
+            git commit -m "🤖 自动提交 $i"
+            sleep $((RANDOM % 10 + 1))  # 模拟每次提交间隔 1~10 秒
+          done
+
+      - name: Push changes
+        run: |
+          git push origin main
